@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="assets/java/script.js"></script>
     <title>Quizz game for merit!</title>
 </head>
 <body>
-    
+ <div class="container">
+    <div id="questions-container" class="hide">
+        <div id="question">Question</div>
+        <div id="answer-buttons" class="button-grid">
+            <button class="button">Answer 1</button>
+            <button class="button">Answer 2</button>
+            <button class="button">Answer 3</button>
+            <button class="button">Answer 4</button>
+        </div>
+    </div>
+    <div class="controls-section">
+        <button id="start-button" class="start-button-button">Start</button>
+        <button id="next-button" class="next-button-button hide">Next</button>
+    </div>
+ </div> 
 </body>
 </html>
