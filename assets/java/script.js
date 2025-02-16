@@ -109,11 +109,29 @@ function startTimer() {
     }
   }, 1000); // 1000 ms = 1 second
 }
-// This function shows the final score at the end of the quiz
+
+// This function shows the final score at the end of the quiz, as well as the scoring.
 function showFinalScore() {
   finalScoreContainer.classList.remove('hide'); // Removes hide so final score is shown
   finalScoreText.innerText = `Your final score is: ${score} out of ${shuffledQuestions.length}`; // Display score
+
+  // This creates an element using the document. method
+  const message = document.createElement('p');
+  message.style.fontWeight = 'bold';
+
+  // Display different messages based on the score
+  if (score > 5) {
+    message.innerText = "You are a history buff!";
+    message.style.color = 'green';
+  } else {
+    message.innerText = "You need to go back to school!";
+    message.style.color = 'red';
+  }
+
+  // Append the message to the final score container
+  finalScoreContainer.appendChild(message);
 }
+
 
 const questions = [
   {
@@ -126,7 +144,7 @@ const questions = [
     ]
   },
   {
-    question: 'Paris is in what country?',
+    question: 'Napoleon Boneapart was from which country?',
     answers: [
       { text: 'France', correct: true },
       { text: 'UK', correct: false },
@@ -168,6 +186,43 @@ const questions = [
       { text: 'US', correct: false },
       { text: 'Saudi Arabia', correct: false },
       { text: 'New Zealand', correct: true }
+    ]
+  },
+  {
+    question: 'In what year did the titanic sink?',
+    answers: [
+      { text: '1917', correct: false},
+      { text: '1909', correct: false},
+      { text: '1922', correct: false},
+      {text: '1912', correct: true}
+    ]
+  },
+  {
+    question: 'When did the Soviet Union dissolve?',
+    answers: [
+      { text: '1916', correct: false},
+      { text: '2008', correct: false},
+      { text: '1991', correct: true},
+      {text: '2016', correct: false}
+    ]
+  },
+  {
+    question: 'When did the Soviet Union dissolve?',
+    answers: [
+      { text: '1916', correct: false},
+      { text: '2008', correct: false},
+      { text: '1991', correct: true},
+      {text: '2016', correct: false}
+    ]
+  },
+  {
+    question: 'in what year did the act of Union between Ireland and Great Britain take place?',
+    answers: [
+      {text: '1922', correct: false},
+      {text: '1798', correct: false},
+      { text: '1801', correct: true},
+      { text: '1603', correct: false}
+
     ]
   }
 ];
