@@ -1,89 +1,103 @@
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
-const timerDisplay = document.getElementById('timer') // Timer display
+const startButton = document.getElementById('start-btn');
+const nextButton = document.getElementById('next-btn');
+const questionContainerElement = document.getElementById('question-container');
+const questionElement = document.getElementById('question');
+const answerButtonsElement = document.getElementById('answer-buttons');
+const timerDisplay = document.getElementById('timer'); // Timer display
+const finalScoreContainer = document.getElementById('final-score'); // Final score container
+const finalScoreText = document.getElementById('final-score-text'); // Final score text element
 
-let shuffledQuestions, currentQuestionIndex
-let timeLeft = 30 // 30 seconds for each question
-let timerInterval // Variable to hold the setInterval function
+let shuffledQuestions, currentQuestionIndex;
+let timeLeft = 30; // 30 seconds for each question
+let timerInterval; // Variable to hold the setInterval function
+let score = 0; // Initialize score to 0
 
-startButton.addEventListener('click', startGame)
+startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
-  currentQuestionIndex++
-  setNextQuestion()
-})
+  currentQuestionIndex++;
+  setNextQuestion();
+});
 
 function startGame() {
-  startButton.classList.add('hide')
-  shuffledQuestions = questions.sort(() => Math.random() - .5)
-  currentQuestionIndex = 0
-  questionContainerElement.classList.remove('hide')
-  setNextQuestion()
+  startButton.classList.add('hide');
+  shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  currentQuestionIndex = 0;
+  score = 0; // Reset score at the start of the game
+  questionContainerElement.classList.remove('hide');
+  finalScoreContainer.classList.add('hide'); // Hide final score container at the start
+  setNextQuestion();
 }
 
 function setNextQuestion() {
-  resetState()
-  startTimer() // Start the timer when setting the next question
-  showQuestion(shuffledQuestions[currentQuestionIndex])
+  resetState();
+  startTimer(); // Start the timer when setting the next question
+  showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
 
 function showQuestion(question) {
-  questionElement.innerText = question.question
-  question.answers.forEach(answer => {
-    const button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
+  questionElement.innerText = question.question;
+
+  // This for loop iterates through the answers
+  for (let i = 0; i < question.answers.length; i++) {
+    const answer = question.answers[i];
+    const button = document.createElement('button');
+    button.innerText = answer.text;
+    button.classList.add('btn');
     if (answer.correct) {
-      button.dataset.correct = answer.correct
+      button.dataset.correct = answer.correct;
     }
-    button.addEventListener('click', selectAnswer)
-    answerButtonsElement.appendChild(button)
-  })
+    button.addEventListener('click', selectAnswer);
+    answerButtonsElement.appendChild(button);
+  }
 }
 
+
+
 function resetState() {
-  clearStatusClass(document.body)
-  nextButton.classList.add('hide')
+  clearStatusClass(document.body);
+  nextButton.classList.add('hide');
   while (answerButtonsElement.firstChild) {
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
 }
 
 function selectAnswer(e) {
-  const selectedButton = e.target
-  const correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
+  const selectedButton = e.target;
+  const correct = selectedButton.dataset.correct;
+  if (correct) {
+    score++; // Increment score for correct answer
+  }
+  setStatusClass(document.body, correct);
   Array.from(answerButtonsElement.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
-  })
-  clearInterval(timerInterval) // Clear the timer interval when an answer is selected
+    setStatusClass(button, button.dataset.correct);
+  });
+  clearInterval(timerInterval); // Clear the timer interval when an answer is selected
   if (shuffledQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
+    nextButton.classList.remove('hide');
   } else {
-    startButton.innerText = 'Restart'
-    startButton.classList.remove('hide')
+    showFinalScore(); // Show the final score when the quiz is finished
+    startButton.innerText = 'Restart';
+    startButton.classList.remove('hide');
   }
 }
 
 function setStatusClass(element, correct) {
-  clearStatusClass(element)
+  clearStatusClass(element);
   if (correct) {
-    element.classList.add('correct')
+    element.classList.add('correct');
   } else {
-    element.classList.add('wrong')
+    element.classList.add('wrong');
   }
 }
 
 function clearStatusClass(element) {
-  element.classList.remove('correct')
-  element.classList.remove('wrong')
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
 }
 
 function startTimer() {
   timeLeft = 30; // Reset timer to 30 seconds for each question
-  timerDisplay.innerText = `Time: ${timeLeft}s` // Display initial time
+  timerDisplay.innerText = `Time: ${timeLeft}s`; // Display initial time
 
   timerInterval = setInterval(() => {
     timeLeft--;
@@ -95,38 +109,65 @@ function startTimer() {
     }
   }, 1000); // 1000 ms = 1 second
 }
+// This function shows the final score at the end of the quiz
+function showFinalScore() {
+  finalScoreContainer.classList.remove('hide'); // Removes hide so final score is shown
+  finalScoreText.innerText = `Your final score is: ${score} out of ${shuffledQuestions.length}`; // Display score
+}
 
 const questions = [
   {
-    question: 'What is 2 + 2?',
+    question: 'What country signed the Magna Carta in 1215?',
     answers: [
-      { text: '4', correct: true },
-      { text: '22', correct: false }
+      { text: 'Greece', correct: false },
+      { text: 'Turkey', correct: false },
+      { text: 'Italy', correct: false },
+      { text: 'England', correct: true }
     ]
   },
   {
-    question: 'Who is the best YouTuber?',
+    question: 'Paris is in what country?',
     answers: [
-      { text: 'Web Dev Simplified', correct: true },
-      { text: 'Traversy Media', correct: true },
-      { text: 'Dev Ed', correct: true },
-      { text: 'Fun Fun Function', correct: true }
+      { text: 'France', correct: true },
+      { text: 'UK', correct: false },
+      { text: 'Germany', correct: false },
+      { text: 'Spain', correct: false }
     ]
   },
   {
-    question: 'Is web development fun?',
+    question: 'What Year did the US declare independence?',
     answers: [
-      { text: 'Kinda', correct: false },
-      { text: 'YES!!!', correct: true },
-      { text: 'Um no', correct: false },
-      { text: 'IDK', correct: false }
+      { text: '1750', correct: false },
+      { text: '1776', correct: true },
+      { text: '1308', correct: false },
+      { text: '1806', correct: false }
     ]
   },
   {
-    question: 'What is 4 * 2?',
+    question: 'WW2 started in what year?',
     answers: [
-      { text: '6', correct: false },
-      { text: '8', correct: true }
+      { text: '1936', correct: false },
+      { text: '1939', correct: true },
+      { text: '1932', correct: false },
+      { text: '1949', correct: false }
+    ]
+  },
+  {
+    question: 'Julius Caesar ruled which Empire?',
+    answers: [
+      { text: 'The Byzantine Empire', correct: false },
+      { text: 'The Ottoman Empire', correct: false },
+      { text: 'The Roman Empire', correct: true },
+      { text: 'The Greek Empire', correct: false }
+    ]
+  },
+  {
+    question: 'Which country was the first to grant women the right to vote?',
+    answers: [
+      { text: 'UK', correct: false },
+      { text: 'US', correct: false },
+      { text: 'Saudi Arabia', correct: false },
+      { text: 'New Zealand', correct: true }
     ]
   }
-]
+];
