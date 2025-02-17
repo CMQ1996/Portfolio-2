@@ -121,9 +121,11 @@ function showFinalScore() {
 
   // Display different messages based on the score
   if (score > 5) {
+    console.log('if')
     message.innerText = "You are a history buff!";
     message.style.color = 'green';
   } else {
+    console.log('else')
     message.innerText = "You need to go back to school!";
     message.style.color = 'red';
   }
