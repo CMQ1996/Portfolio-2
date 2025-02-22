@@ -18,7 +18,8 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background: url("../images/pexels-zsofia-feher-685822-14640075.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
 
 .container {
