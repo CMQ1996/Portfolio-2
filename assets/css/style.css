@@ -28,50 +28,41 @@ body {
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 0 10px 2px;
+  margin: auto;
+  text-align: center;
 }
 
 .btn-grid {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  margin: 20px 0;
+  margin-top: 20px;
 }
 
 .btn {
-  --hue: var(--hue-neutral);
-  border: 1px solid hsl(var(--hue), 100%, 30%);
-  background-color: hsl(var(--hue), 100%, 50%);
+  padding: 10px;
+  border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  background-color: #007BFF;
   color: white;
-  outline: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .btn:hover {
-  border-color: black;
-}
-
-.btn.correct {
-  --hue: var(--hue-correct);
-  color: black;
-}
-
-.btn.wrong {
-  --hue: var(--hue-wrong);
-}
-
-.start-btn, .next-btn {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 10px 20px;
-}
-
-.controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #0056b3;
 }
 
 .hide {
   display: none;
+}
+
+#timer {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#final-score {
+  margin-top: 20px;
 }
