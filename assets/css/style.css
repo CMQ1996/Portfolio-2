@@ -18,7 +18,7 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: white; /* Changed background to white */
+  background-color: white;
 }
 
 .container {
@@ -26,10 +26,28 @@ body {
   max-width: 80%;
   background-color: white;
   border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0 0 10px 2px;
-  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
   text-align: center;
+}
+
+#instructions {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#instructions h2 {
+  margin: 0 0 10px;
+}
+
+#instructions p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
 }
 
 .btn-grid {
@@ -47,6 +65,7 @@ body {
   color: white;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {

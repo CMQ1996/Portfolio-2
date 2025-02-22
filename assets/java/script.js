@@ -11,6 +11,14 @@ let shuffledQuestions, currentQuestionIndex;
 let timeLeft = 30; // 30 seconds for each question
 let timerInterval; // Variable to hold the setInterval function
 let score = 0; // Initialize score to 0
+// Hides instruction message when the game starts
+const instructions = document.getElementById('instructions');
+const questionContainer = document.getElementById('question-container');
+
+startButton.addEventListener('click', () => {
+  instructions.classList.add('hide');
+  questionContainer.classList.remove('hide');
+});
 
 startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
