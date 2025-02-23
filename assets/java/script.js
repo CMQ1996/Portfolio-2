@@ -3,15 +3,15 @@ const nextButton = document.getElementById('next-btn');
 const questionContainerElement = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
-const timerDisplay = document.getElementById('timer'); // Timer display
-const finalScoreContainer = document.getElementById('final-score'); // Final score container
-const finalScoreText = document.getElementById('final-score-text'); // Final score text element
+const timerDisplay = document.getElementById('timer');
+const finalScoreContainer = document.getElementById('final-score');
+const finalScoreText = document.getElementById('final-score-text');
 
 let shuffledQuestions, currentQuestionIndex;
-let timeLeft = 30; // 30 seconds for each question
-let timerInterval; // Variable to hold the setInterval function
-let score = 0; // Initialize score to 0
-// Hides instruction message when the game starts
+let timeLeft = 30;
+let timerInterval;
+let score = 0;
+
 const instructions = document.getElementById('instructions');
 const questionContainer = document.getElementById('question-container');
 
@@ -27,39 +27,47 @@ nextButton.addEventListener('click', () => {
 });
 
 function startGame() {
-  startButton.classList.add('hide');
-  shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-  currentQuestionIndex = 0;
-  score = 0; // Reset score at the start of the game
-  questionContainerElement.classList.remove('hide');
-  finalScoreContainer.classList.add('hide'); // Hide final score container at the start
-  setNextQuestion();
-}
-
-function setNextQuestion() {
-  resetState();
-  startTimer(); // Start the timer when setting the next question
-  showQuestion(shuffledQuestions[currentQuestionIndex]);
-}
-
-function showQuestion(question) {
-  questionElement.innerText = question.question;
-
-  // This for loop iterates through the answers
-  for (let i = 0; i < question.answers.length; i++) {
-    const answer = question.answers[i];
-    const button = document.createElement('button');
-    button.innerText = answer.text;
-    button.classList.add('btn');
-    if (answer.correct) {
-      button.dataset.correct = answer.correct;
-    }
-    button.addEventListener('click', selectAnswer);
-    answerButtonsElement.appendChild(button);
+  try {
+    startButton.classList.add('hide');
+    shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+    currentQuestionIndex = 0;
+    score = 0;
+    questionContainerElement.classList.remove('hide');
+    finalScoreContainer.classList.add('hide');
+    setNextQuestion();
+  } catch (error) {
+    console.error("Error starting the game:", error);
   }
 }
 
+function setNextQuestion() {
+  try {
+    resetState();
+    startTimer();
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
+  } catch (error) {
+    console.error("Error setting the next question:", error);
+  }
+}
 
+function showQuestion(question) {
+  try {
+    questionElement.innerText = question.question;
+    for (let i = 0; i < question.answers.length; i++) {
+      const answer = question.answers[i];
+      const button = document.createElement('button');
+      button.innerText = answer.text;
+      button.classList.add('btn');
+      if (answer.correct) {
+        button.dataset.correct = answer.correct;
+      }
+      button.addEventListener('click', selectAnswer);
+      answerButtonsElement.appendChild(button);
+    }
+  } catch (error) {
+    console.error("Error displaying the question:", error);
+  }
+}
 
 function resetState() {
   clearStatusClass(document.body);
@@ -70,22 +78,24 @@ function resetState() {
 }
 
 function selectAnswer(e) {
-  const selectedButton = e.target;
-  const correct = selectedButton.dataset.correct;
-  if (correct) {
-    score++; // Increment score for correct answer
-  }
-  setStatusClass(document.body, correct);
-  Array.from(answerButtonsElement.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct);
-  });
-  clearInterval(timerInterval); // Clear the timer interval when an answer is selected
-  if (shuffledQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide');
-  } else {
-    showFinalScore(); // Show the final score when the quiz is finished
-    startButton.innerText = 'Restart';
-    startButton.classList.remove('hide');
+  try {
+    const selectedButton = e.target;
+    const correct = selectedButton.dataset.correct;
+    if (correct) score++;
+    setStatusClass(document.body, correct);
+    Array.from(answerButtonsElement.children).forEach(button => {
+      setStatusClass(button, button.dataset.correct);
+    });
+    clearInterval(timerInterval);
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+      nextButton.classList.remove('hide');
+    } else {
+      showFinalScore();
+      startButton.innerText = 'Restart';
+      startButton.classList.remove('hide');
+    }
+  } catch (error) {
+    console.error("Error selecting answer:", error);
   }
 }
 
@@ -104,44 +114,40 @@ function clearStatusClass(element) {
 }
 
 function startTimer() {
-  timeLeft = 30; // Reset timer to 30 seconds for each question
-  timerDisplay.innerText = `Time: ${timeLeft}s`; // Display initial time
-
-  timerInterval = setInterval(() => {
-    timeLeft--;
+  try {
+    timeLeft = 30;
     timerDisplay.innerText = `Time: ${timeLeft}s`;
-
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval); // Stop the timer
-      nextButton.classList.remove('hide'); // Show the "Next" button after time is up
-    }
-  }, 1000); // 1000 ms = 1 second
-}
-
-// This function shows the final score at the end of the quiz, as well as the scoring.
-function showFinalScore() {
-  finalScoreContainer.classList.remove('hide'); // Removes hide so final score is shown
-  finalScoreText.innerText = `Your final score is: ${score} out of ${shuffledQuestions.length}`; // Display score
-
-  // This creates an element using the document. method
-  const message = document.createElement('p');
-  message.style.fontWeight = 'bold';
-
-  // Display different messages based on the score
-  if (score > 5) {
-    console.log('if')
-    message.innerText = "You are a history buff!";
-    message.style.color = 'green';
-  } else {
-    console.log('else')
-    message.innerText = "You need to go back to school!";
-    message.style.color = 'red';
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      timerDisplay.innerText = `Time: ${timeLeft}s`;
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        nextButton.classList.remove('hide');
+      }
+    }, 1000);
+  } catch (error) {
+    console.error("Error with the timer:", error);
   }
-
-  // Append the message to the final score container
-  finalScoreContainer.appendChild(message);
 }
 
+function showFinalScore() {
+  try {
+    finalScoreContainer.classList.remove('hide');
+    finalScoreText.innerText = `Your final score is: ${score} out of ${shuffledQuestions.length}`;
+    const message = document.createElement('p');
+    message.style.fontWeight = 'bold';
+    if (score > 5) {
+      message.innerText = "You are a history buff!";
+      message.style.color = 'green';
+    } else {
+      message.innerText = "You need to go back to school!";
+      message.style.color = 'red';
+    }
+    finalScoreContainer.appendChild(message);
+  } catch (error) {
+    console.error("Error showing final score:", error);
+  }
+}
 
 const questions = [
   {
@@ -154,7 +160,7 @@ const questions = [
     ]
   },
   {
-    question: 'Napoleon Boneapart was from which country?',
+    question: 'Napoleon Bonaparte was from which country?',
     answers: [
       { text: 'France', correct: true },
       { text: 'UK', correct: false },
@@ -199,40 +205,30 @@ const questions = [
     ]
   },
   {
-    question: 'In what year did the titanic sink?',
+    question: 'In what year did the Titanic sink?',
     answers: [
-      { text: '1917', correct: false},
-      { text: '1909', correct: false},
-      { text: '1922', correct: false},
-      {text: '1912', correct: true}
+      { text: '1917', correct: false },
+      { text: '1909', correct: false },
+      { text: '1922', correct: false },
+      { text: '1912', correct: true }
     ]
   },
   {
     question: 'When did the Soviet Union dissolve?',
     answers: [
-      { text: '1916', correct: false},
-      { text: '2008', correct: false},
-      { text: '1991', correct: true},
-      {text: '2016', correct: false}
+      { text: '1916', correct: false },
+      { text: '2008', correct: false },
+      { text: '1991', correct: true },
+      { text: '2016', correct: false }
     ]
   },
   {
-    question: 'When did the Soviet Union dissolve?',
+    question: 'In what year did the Act of Union between Ireland and Great Britain take place?',
     answers: [
-      { text: '1916', correct: false},
-      { text: '2008', correct: false},
-      { text: '1991', correct: true},
-      {text: '2016', correct: false}
-    ]
-  },
-  {
-    question: 'in what year did the act of Union between Ireland and Great Britain take place?',
-    answers: [
-      {text: '1922', correct: false},
-      {text: '1798', correct: false},
-      { text: '1801', correct: true},
-      { text: '1603', correct: false}
-
+      { text: '1922', correct: false },
+      { text: '1798', correct: false },
+      { text: '1801', correct: true },
+      { text: '1603', correct: false }
     ]
   }
 ];

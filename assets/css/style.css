@@ -18,7 +18,7 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url("../images/pexels-zsofia-feher-685822-14640075.jpg") no-repeat center center fixed;
+  background: url("../images/pexels-zsofia-feher-685822-14640075.jpg") no-repeat center center fixed; 
   background-size: cover;
 }
 
@@ -40,6 +40,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
 
 #instructions h2 {
   margin: 0 0 10px;
