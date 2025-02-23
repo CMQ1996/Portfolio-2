@@ -134,7 +134,7 @@ function showFinalScore() {
   try {
     finalScoreContainer.classList.remove('hide');
     finalScoreText.innerText = `Your final score is: ${score} out of ${shuffledQuestions.length}`;
-    const message = document.createElement('p');
+    const message = document.getElementById('final-score-text');
     message.style.fontWeight = 'bold';
     if (score > 5) {
       message.innerText = "You are a history buff!";
