@@ -133,17 +133,30 @@ function startTimer() {
 function showFinalScore() {
   try {
     finalScoreContainer.classList.remove('hide');
-    finalScoreText.innerText = `Your final score is: ${score} out of ${shuffledQuestions.length}`;
     const message = document.getElementById('final-score-text');
     message.style.fontWeight = 'bold';
-    if (score > 5) {
-      message.innerText = "You are a history buff!";
+
+    // Calculate the normalized score out of 10
+    const normalizedScore = Math.round((score / shuffledQuestions.length) * 10);
+
+    // Set the base score message with normalized score
+    let feedback = `Your final score is: ${score} out of ${shuffledQuestions.length}. `;
+
+    // Add custom feedback based on the normalized score
+    if (normalizedScore > 5) {
+      feedback += "You are a history buff!";
       message.style.color = 'green';
     } else {
-      message.innerText = "You need to go back to school!";
+      feedback += "You need to go back to school!";
       message.style.color = 'red';
     }
-    finalScoreContainer.appendChild(message);
+
+    message.innerText = feedback;
+
+    // Append the message if not already in the container
+    if (!finalScoreContainer.contains(message)) {
+      finalScoreContainer.appendChild(message);
+    }
   } catch (error) {
     console.error("Error showing final score:", error);
   }
@@ -230,5 +243,15 @@ const questions = [
       { text: '1801', correct: true },
       { text: '1603', correct: false }
     ]
+  },
+  {
+    question: 'In what year did Constantinople fall to the Ottoman Empire?',
+    answers: [
+      { text: '1922', correct: false },
+      { text: '1453', correct: true},
+      { text: '1204', correct: false},
+      { text: '1298', correct: false}
+    ]
+
   }
 ];
