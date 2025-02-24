@@ -26,7 +26,7 @@ body {
 .container {
   width: 800px;
   max-width: 90%;
-  background-color: white;
+  background: url(..//images/pexels-pixabay-235985.jpg);
   border-radius: 5px;
   padding: 20px;
   border: 2px double #8B0000; /* Added double border */
@@ -36,7 +36,7 @@ body {
 #instructions {
   margin-bottom: 20px;
   padding: 15px;
-  background-color: #f9f9f9;
+  background: url("..//images/pexels-pixabay-235985.jpg") ;
   border: 2px double #8B0000; /* Updated border provides a more rustic feel */
   border-radius: 5px;
   
@@ -52,7 +52,7 @@ body {
 #instructions p {
   margin: 0;
   font-size: 16px;
-  color: #555;
+  color: #070000;
 }
 
 .btn-grid {
