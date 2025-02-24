@@ -11,6 +11,7 @@ let shuffledQuestions, currentQuestionIndex;
 let timeLeft = 30;
 let timerInterval;
 let score = 0;
+let acceptingAnswers = false;
 
 const instructions = document.getElementById('instructions');
 const questionContainer = document.getElementById('question-container');
@@ -18,9 +19,9 @@ const questionContainer = document.getElementById('question-container');
 startButton.addEventListener('click', () => {
   instructions.classList.add('hide');
   questionContainer.classList.remove('hide');
+  startGame();
 });
 
-startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   setNextQuestion();
@@ -43,8 +44,12 @@ function startGame() {
 function setNextQuestion() {
   try {
     resetState();
-    startTimer();
-    showQuestion(shuffledQuestions[currentQuestionIndex]);
+    if (currentQuestionIndex < shuffledQuestions.length) {
+      startTimer();
+      showQuestion(shuffledQuestions[currentQuestionIndex]);
+    } else {
+      showFinalScore();
+    }
   } catch (error) {
     console.error("Error setting the next question:", error);
   }
@@ -53,8 +58,8 @@ function setNextQuestion() {
 function showQuestion(question) {
   try {
     questionElement.innerText = question.question;
-    for (let i = 0; i < question.answers.length; i++) {
-      const answer = question.answers[i];
+    acceptingAnswers = true;
+    question.answers.forEach(answer => {
       const button = document.createElement('button');
       button.innerText = answer.text;
       button.classList.add('btn');
@@ -63,7 +68,7 @@ function showQuestion(question) {
       }
       button.addEventListener('click', selectAnswer);
       answerButtonsElement.appendChild(button);
-    }
+    });
   } catch (error) {
     console.error("Error displaying the question:", error);
   }
@@ -79,6 +84,8 @@ function resetState() {
 
 function selectAnswer(e) {
   try {
+    if (!acceptingAnswers) return;
+    acceptingAnswers = false;
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct;
     if (correct) score++;
@@ -122,7 +129,12 @@ function startTimer() {
       timerDisplay.innerText = `Time: ${timeLeft}s`;
       if (timeLeft <= 0) {
         clearInterval(timerInterval);
+        acceptingAnswers = false;
         nextButton.classList.remove('hide');
+        setStatusClass(document.body, false); // Mark as wrong if time runs out
+        Array.from(answerButtonsElement.children).forEach(button => {
+          setStatusClass(button, button.dataset.correct);
+        });
       }
     }, 1000);
   } catch (error) {
@@ -132,17 +144,15 @@ function startTimer() {
 
 function showFinalScore() {
   try {
+    clearInterval(timerInterval);
     finalScoreContainer.classList.remove('hide');
     const message = document.getElementById('final-score-text');
     message.style.fontWeight = 'bold';
 
-    // Calculate the normalized score out of 10
     const normalizedScore = Math.round((score / shuffledQuestions.length) * 10);
 
-    // Set the base score message with normalized score
     let feedback = `Your final score is: ${score} out of ${shuffledQuestions.length}. `;
 
-    // Add custom feedback based on the normalized score
     if (normalizedScore > 5) {
       feedback += "You are a history buff!";
       message.style.color = 'green';
@@ -152,106 +162,21 @@ function showFinalScore() {
     }
 
     message.innerText = feedback;
-
-    // Append the message if not already in the container
-    if (!finalScoreContainer.contains(message)) {
-      finalScoreContainer.appendChild(message);
-    }
   } catch (error) {
     console.error("Error showing final score:", error);
   }
 }
 
 const questions = [
-  {
-    question: 'What country signed the Magna Carta in 1215?',
-    answers: [
-      { text: 'Greece', correct: false },
-      { text: 'Turkey', correct: false },
-      { text: 'Italy', correct: false },
-      { text: 'England', correct: true }
-    ]
-  },
-  {
-    question: 'Napoleon Bonaparte was from which country?',
-    answers: [
-      { text: 'France', correct: true },
-      { text: 'UK', correct: false },
-      { text: 'Germany', correct: false },
-      { text: 'Spain', correct: false }
-    ]
-  },
-  {
-    question: 'What Year did the US declare independence?',
-    answers: [
-      { text: '1750', correct: false },
-      { text: '1776', correct: true },
-      { text: '1308', correct: false },
-      { text: '1806', correct: false }
-    ]
-  },
-  {
-    question: 'WW2 started in what year?',
-    answers: [
-      { text: '1936', correct: false },
-      { text: '1939', correct: true },
-      { text: '1932', correct: false },
-      { text: '1949', correct: false }
-    ]
-  },
-  {
-    question: 'Julius Caesar ruled which Empire?',
-    answers: [
-      { text: 'The Byzantine Empire', correct: false },
-      { text: 'The Ottoman Empire', correct: false },
-      { text: 'The Roman Empire', correct: true },
-      { text: 'The Greek Empire', correct: false }
-    ]
-  },
-  {
-    question: 'Which country was the first to grant women the right to vote?',
-    answers: [
-      { text: 'UK', correct: false },
-      { text: 'US', correct: false },
-      { text: 'Saudi Arabia', correct: false },
-      { text: 'New Zealand', correct: true }
-    ]
-  },
-  {
-    question: 'In what year did the Titanic sink?',
-    answers: [
-      { text: '1917', correct: false },
-      { text: '1909', correct: false },
-      { text: '1922', correct: false },
-      { text: '1912', correct: true }
-    ]
-  },
-  {
-    question: 'When did the Soviet Union dissolve?',
-    answers: [
-      { text: '1916', correct: false },
-      { text: '2008', correct: false },
-      { text: '1991', correct: true },
-      { text: '2016', correct: false }
-    ]
-  },
-  {
-    question: 'In what year did the Act of Union between Ireland and Great Britain take place?',
-    answers: [
-      { text: '1922', correct: false },
-      { text: '1798', correct: false },
-      { text: '1801', correct: true },
-      { text: '1603', correct: false }
-    ]
-  },
-  {
-    question: 'In what year did Constantinople fall to the Ottoman Empire?',
-    answers: [
-      { text: '1922', correct: false },
-      { text: '1453', correct: true},
-      { text: '1204', correct: false},
-      { text: '1298', correct: false}
-    ]
-
-  }
+  { question: 'What country signed the Magna Carta in 1215?', answers: [ { text: 'Greece', correct: false }, { text: 'Turkey', correct: false }, { text: 'Italy', correct: false }, { text: 'England', correct: true } ] },
+  { question: 'Napoleon Bonaparte was from which country?', answers: [ { text: 'France', correct: true }, { text: 'UK', correct: false }, { text: 'Germany', correct: false }, { text: 'Spain', correct: false } ] },
+  { question: 'What Year did the US declare independence?', answers: [ { text: '1750', correct: false }, { text: '1776', correct: true }, { text: '1308', correct: false }, { text: '1806', correct: false } ] },
+  { question: 'WW2 started in what year?', answers: [ { text: '1936', correct: false }, { text: '1939', correct: true }, { text: '1932', correct: false }, { text: '1949', correct: false } ] },
+  { question: 'Julius Caesar ruled which Empire?', answers: [ { text: 'The Byzantine Empire', correct: false }, { text: 'The Ottoman Empire', correct: false }, { text: 'The Roman Empire', correct: true }, { text: 'The Greek Empire', correct: false } ] },
+  { question: 'Which country was the first to grant women the right to vote?', answers: [ { text: 'UK', correct: false }, { text: 'US', correct: false }, { text: 'Saudi Arabia', correct: false }, { text: 'New Zealand', correct: true } ] },
+  { question: 'In what year did the Titanic sink?', answers: [ { text: '1917', correct: false }, { text: '1909', correct: false }, { text: '1922', correct: false }, { text: '1912', correct: true } ] },
+  { question: 'When did the Soviet Union dissolve?', answers: [ { text: '1916', correct: false }, { text: '2008', correct: false }, { text: '1991', correct: true }, { text: '2016', correct: false } ] },
+  { question: 'In what year did the Act of Union between Ireland and Great Britain take place?', answers: [ { text: '1922', correct: false }, { text: '1798', correct: false }, { text: '1801', correct: true }, { text: '1603', correct: false } ] },
+  { question: 'In what year did Constantinople fall to the Ottoman Empire?', answers: [ { text: '1922', correct: false }, { text: '1453', correct: true}, { text: '1204', correct: false}, { text: '1298', correct: false} ] }
 ];
+
