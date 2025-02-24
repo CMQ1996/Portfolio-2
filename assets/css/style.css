@@ -1,6 +1,6 @@
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: "Gotham Rounded", Arial, sans-serif;
+  font-family: "Cormorant Garamond", serif;
 }
 
 :root {
@@ -29,7 +29,7 @@ body {
   background-color: white;
   border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  border: 2px double #8B0000; /* Added double border */
   text-align: center;
 }
 
@@ -37,13 +37,16 @@ body {
   margin-bottom: 20px;
   padding: 15px;
   background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  border: 2px double #8B0000; /* Updated border provides a more rustic feel */
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  
 }
 
+/*applies new aged feel to instructions*/
 #instructions h2 {
   margin: 0 0 10px;
+  text-transform: lowercase;
+  font-variant: small-caps;
 }
 
 #instructions p {
@@ -63,12 +66,15 @@ body {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #007BFF;
+  background-color: #8B0000; /* Deep burgundy for historical feel */
   color: white;
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: lowercase;
+  font-variant: small-caps;
 }
+
 
 .btn:hover {
   background-color: #0056b3;
@@ -95,6 +101,12 @@ body {
   margin-top: 20px;
   font-size: 20px;
   font-weight: bold;
+}
+
+/*applies new fonts to timer and final score*/ 
+#final-score, #timer {
+  text-transform: lowercase;
+  font-variant: small-caps;
 }
 
 /* Responsive Design */

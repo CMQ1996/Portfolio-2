@@ -62,7 +62,7 @@ function showQuestion(question) {
     question.answers.forEach(answer => {
       const button = document.createElement('button');
       button.innerText = answer.text;
-      button.classList.add('btn');
+      button.classList.add('btn', 'historical-btn'); // Added historical theme class
       if (answer.correct) {
         button.dataset.correct = answer.correct;
       }
@@ -131,7 +131,7 @@ function startTimer() {
         clearInterval(timerInterval);
         acceptingAnswers = false;
         nextButton.classList.remove('hide');
-        setStatusClass(document.body, false); // Mark as wrong if time runs out
+        setStatusClass(document.body, false);
         Array.from(answerButtonsElement.children).forEach(button => {
           setStatusClass(button, button.dataset.correct);
         });
@@ -154,10 +154,10 @@ function showFinalScore() {
     let feedback = `Your final score is: ${score} out of ${shuffledQuestions.length}. `;
 
     if (normalizedScore > 5) {
-      feedback += "You are a history buff!";
+      feedback += "Well done, noble scholar!";
       message.style.color = 'green';
     } else {
-      feedback += "You need to go back to school!";
+      feedback += "Back to the scrolls with you!";
       message.style.color = 'red';
     }
 
@@ -179,4 +179,3 @@ const questions = [
   { question: 'In what year did the Act of Union between Ireland and Great Britain take place?', answers: [ { text: '1922', correct: false }, { text: '1798', correct: false }, { text: '1801', correct: true }, { text: '1603', correct: false } ] },
   { question: 'In what year did Constantinople fall to the Ottoman Empire?', answers: [ { text: '1922', correct: false }, { text: '1453', correct: true}, { text: '1204', correct: false}, { text: '1298', correct: false} ] }
 ];
-
