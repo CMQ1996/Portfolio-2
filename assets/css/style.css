@@ -1,6 +1,6 @@
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Cormorant Garamond", serif; /*This font provides a more aged or historic feel*/
 }
 
 :root {

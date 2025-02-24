@@ -167,22 +167,27 @@ function showFinalScore() {
   }
 }
 // this event listener allows the user to share their results on social media
-document.getElementById('share-btn').addEventListener('click', function() {
-  const scoreText = document.getElementById('final-score-text').innerText;
-  const shareData = {
-    title: 'The Great History Quiz',
-    text: `I just completed The Great History Quiz! ${scoreText}`,
-    url: window.location.href
-  };
+try {
+  document.getElementById('share-btn').addEventListener('click', function() {
+    const scoreText = document.getElementById('final-score-text').innerText;
+    const shareData = {
+      title: 'The Great History Quiz',
+      text: `I just completed The Great History Quiz! ${scoreText}`,
+      url: window.location.href
+    };
 
-  if (navigator.share) {
-    navigator.share(shareData)
-      .then(() => console.log('Successfully shared'))
-      .catch((error) => console.error('Error sharing:', error));
-  } else {
-    alert('Sharing not supported on this browser.');
-  }
-});
+    if (navigator.share) {
+      navigator.share(shareData)
+        .then(() => console.log('Successfully shared'))
+        .catch((error) => console.error('Error sharing:', error));
+    } else {
+      alert('Sharing not supported on this browser.');
+    }
+  });
+} catch (error) {
+  console.error('An unexpected error occurred:', error);
+}
+
 
 const questions = [
   { question: 'What country signed the Magna Carta in 1215?', answers: [ { text: 'Greece', correct: false }, { text: 'Turkey', correct: false }, { text: 'Italy', correct: false }, { text: 'England', correct: true } ] },
