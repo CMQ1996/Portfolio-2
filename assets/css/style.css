@@ -1,6 +1,6 @@
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: Gotham Rounded;
+  font-family: "Gotham Rounded", Arial, sans-serif;
 }
 
 :root {
@@ -18,13 +18,14 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: url("../images/pexels-zsofia-feher-685822-14640075.jpg") no-repeat center center fixed; 
+  background: url("../images/pexels-zsofia-feher-685822-14640075.jpg") no-repeat center center fixed;
   background-size: cover;
+  font-family: "Gotham Rounded", Arial, sans-serif;
 }
 
 .container {
   width: 800px;
-  max-width: 80%;
+  max-width: 90%;
   background-color: white;
   border-radius: 5px;
   padding: 20px;
@@ -40,7 +41,6 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
-
 
 #instructions h2 {
   margin: 0 0 10px;
@@ -67,11 +67,17 @@ body {
   color: white;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
 }
 
 .hide {
@@ -82,8 +88,35 @@ body {
   margin-top: 15px;
   font-size: 18px;
   font-weight: bold;
+  color: #333;
 }
 
 #final-score {
   margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
 }
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .btn-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #instructions p {
+    font-size: 14px;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+
+  #timer {
+    font-size: 16px;
+  }
+} 
