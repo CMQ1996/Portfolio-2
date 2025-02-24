@@ -1,19 +1,68 @@
-# The Great History Quiz
+# The Great History Quiz 
+![alt text](all-devices-white.png)
 
-**The Great History Quiz**! Is a fun and interactive quiz game to test users knowledge of historical events, with categories that range from ancient to modern history. Users will receive a final score out of ten which determines their level of knowledge of historical events.
+
+[View the project here]
+
+## Table of Contents
+
+- [User Experience (UX)](#user-experience-ux)
+  - [Target Audience](#target-audience)
+  - [User Goals](#user-goals)
+  - [Project Story](#project-story)
+- [Design](#design)
+   - [Design Choices](#design-choices)
+   - [Wireframes](#wireframes)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Testing](#testing)
+- [Deployment and Local Development](#deployment-and-local-development)
+- [Credits & Acknowledgments](#credits--acknowledgments)
+- [Final Thoughts](#final-thoughts)
+
+---
+
+## User Experience (UX)
+
+### Target Audience
+
+### User Goals
+
+### Project Story
+
+---
+
+## Design
+
+### Design Choices
+
+### Wireframes
+
+![Welcome Page Wireframe]
+![Quiz Page Wireframe]
+![Results Page Wireframe]
+
+---
+
 ## Features
 
-- **Timed Questions:** You have 30 seconds to answer each question.
-- **Multiple Answer Choices:** Each question comes with four possible answers, only one of which is correct.
-- **Responsive Design:** The quiz is optimized for both desktop and mobile users.
-- **Feedback System:** After completing the quiz, you’ll receive a score with a fun feedback message.
-- **Timer:** A countdown timer shows how much time you have left to answer each question.
-- **Final Score:** Once all questions are answered, your final score is displayed with a fun message indicating your knowledge level.
+---
 
-## How to Play
+## Technologies Used
 
-1. **Start the Quiz**: Click the "Start" button to begin the quiz.
-2. **Answer the Questions**: Choose the correct answer from the four options provided. You have 30 seconds to answer each question.
-3. **View Your Score**: Once all the questions are answered, your final score will be displayed with feedback.
+---
 
+## Testing
+
+---
+
+## Deployment and Local Development
+
+---
+
+## Credits & Acknowledgments
+
+---
+
+## Final Thoughts
 
