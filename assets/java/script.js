@@ -1,3 +1,4 @@
+// Get DOM elements for buttons, question container, timer, and score
 const startButton = document.getElementById('start-btn');
 const nextButton = document.getElementById('next-btn');
 const questionContainerElement = document.getElementById('question-container');
@@ -16,21 +17,24 @@ let acceptingAnswers = false;
 const instructions = document.getElementById('instructions');
 const questionContainer = document.getElementById('question-container');
 
+// Start button event listener to begin the game
 startButton.addEventListener('click', () => {
   instructions.classList.add('hide');
   questionContainer.classList.remove('hide');
   startGame();
 });
 
+// Next button event listener to load the next question
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   setNextQuestion();
 });
 
+// Function to start the quiz game
 function startGame() {
   try {
     startButton.classList.add('hide');
-    shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+    shuffledQuestions = questions.sort(() => Math.random() - 0.5); // Shuffle questions
     currentQuestionIndex = 0;
     score = 0;
     questionContainerElement.classList.remove('hide');
@@ -41,6 +45,7 @@ function startGame() {
   }
 }
 
+// Load the next question or end the game if no questions remain
 function setNextQuestion() {
   try {
     resetState();
@@ -55,6 +60,7 @@ function setNextQuestion() {
   }
 }
 
+// Display the current question and possible answers
 function showQuestion(question) {
   try {
     questionElement.innerText = question.question;
@@ -62,7 +68,7 @@ function showQuestion(question) {
     question.answers.forEach(answer => {
       const button = document.createElement('button');
       button.innerText = answer.text;
-      button.classList.add('btn', 'historical-btn'); // Added historical theme class
+      button.classList.add('btn', 'historical-btn'); // Style the answer buttons
       if (answer.correct) {
         button.dataset.correct = answer.correct;
       }
@@ -74,6 +80,7 @@ function showQuestion(question) {
   }
 }
 
+// Reset the state before displaying a new question
 function resetState() {
   clearStatusClass(document.body);
   nextButton.classList.add('hide');
@@ -82,6 +89,7 @@ function resetState() {
   }
 }
 
+// Handle answer selection and update the score
 function selectAnswer(e) {
   try {
     if (!acceptingAnswers) return;
@@ -106,6 +114,7 @@ function selectAnswer(e) {
   }
 }
 
+// Apply correct/wrong class based on the answer
 function setStatusClass(element, correct) {
   clearStatusClass(element);
   if (correct) {
@@ -115,11 +124,13 @@ function setStatusClass(element, correct) {
   }
 }
 
+// Remove correct/wrong classes
 function clearStatusClass(element) {
   element.classList.remove('correct');
   element.classList.remove('wrong');
 }
 
+// Start countdown timer for each question
 function startTimer() {
   try {
     timeLeft = 30;
@@ -142,6 +153,7 @@ function startTimer() {
   }
 }
 
+// Display the final score and feedback
 function showFinalScore() {
   try {
     clearInterval(timerInterval);
@@ -166,7 +178,8 @@ function showFinalScore() {
     console.error("Error showing final score:", error);
   }
 }
-// this event listener allows the user to share their results on social media
+
+// Event listener to allow users to share their results
 try {
   document.getElementById('share-btn').addEventListener('click', function() {
     const scoreText = document.getElementById('final-score-text').innerText;
@@ -188,7 +201,7 @@ try {
   console.error('An unexpected error occurred:', error);
 }
 
-
+// Array of quiz questions and answers
 const questions = [
   { question: 'What country signed the Magna Carta in 1215?', answers: [ { text: 'Greece', correct: false }, { text: 'Turkey', correct: false }, { text: 'Italy', correct: false }, { text: 'England', correct: true } ] },
   { question: 'Napoleon Bonaparte was from which country?', answers: [ { text: 'France', correct: true }, { text: 'UK', correct: false }, { text: 'Germany', correct: false }, { text: 'Spain', correct: false } ] },
