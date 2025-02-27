@@ -117,8 +117,8 @@ Inspired by the success of *Kahoot!* and gamification in learning, this project 
 ### **Testing**  
 - **HTML**: Validated using the [W3C Markup Validator](https://validator.w3.org/).
 - **CSS**: Validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/).
-- **JavaScript**: Validated using the [Jshint validator](https://jshint.com/)
-- **Site Functionality**: Tested funtionality on desktop and mobile using [Lighthouse](https://pagespeed.web.dev/)
+- **JavaScript**: Validated using the [Jshint validator](https://jshint.com/).
+- **Site Functionality**: Tested funtionality on desktop and mobile using [Lighthouse](https://pagespeed.web.dev/).
 <details>
 <summary>index.html
 </summary>
