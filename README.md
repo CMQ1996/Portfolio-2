@@ -1,5 +1,5 @@
 # **The Great History Quiz**  
-![Quiz Preview](all-devices-black.png)  
+![Quiz Preview](/readme.images/all-devices-black.png)  
 
 [**View the project here:**](https://cmq1996.github.io/Portfolio-2/)  
 
@@ -51,13 +51,13 @@ Inspired by the success of *Kahoot!* and gamification in learning, this project 
 
 ### **Wireframes**  
 **Instructions Page:**  
-![Instructions Page](image.png)
+![Instructions Page](/readme.images/image.png)
 
 **Quiz Page:**  
-![Quiz Page](image-1.png)
+![Quiz Page](/readme.images/image-1.png)
 
 **Final Score Page:**  
-![Final Score Page](image-2.png)  
+![Final Score Page](/readme.images/image-2.png)  
 
 ---
 
@@ -102,14 +102,57 @@ Inspired by the success of *Kahoot!* and gamification in learning, this project 
 ❌ **Timer not resetting on new questions** – *Resolved by resetting the timer in JavaScript after each question.*  
 ❌ **Final score sometimes displayed incorrectly** – *Fixed by ensuring score updates properly after each question.*  
 ❌ **Layout shifting on smaller screens** – *Adjusted media queries for better responsiveness.*  
+❌ **Buttons incrementing score at the end of the quiz** - *As part of my testing phase, I sent the game to a few friends of mine to try. One of my friends, Sandra tested the game and found that the score was greater than 10 thus displaying innacurrate results. ![Bug 1](/readme.images/IMG-20250223-WA0028.jpg)*
+*I solved this bug, by adding two extra snippets of code to stop the double event*
+![bug 1 solved](/readme.images/image-4.png)
+❌ **End of quiz message double event** *While testing the quiz with my friends, as well as my mentor Rory I discovered that a double event was occuring as a result of one of my functions.*
+![double event](/readme.images/for%20readme-1.PNG)
+
+*To solve this error, I replaced the createnewelement in the const message function with a new getelementbyID one therefore preventing the double event.*
+![double event solved](/readme.images/forreadme333.PNG)
+❌**End of quiz ammendment removed score out of ten** *The previous ammendement to the JavaScript removed the score out of ten display at the end of the quiz. I ammended this by adding a normalised score calculated with Math.round((score / shuffledQuestions.length) * 10) to show a scoring out of ten*
+![double event extra issue](/readme.images/image-5.png)
 
 ---
 ### **Testing**  
-![alt text](readme3.PNG)
-**Tested on Lighthouse**
+- **HTML**: Validated using the [W3C Markup Validator](https://validator.w3.org/).
+- **CSS**: Validated using the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/).
+- **JavaScript**: Validated using the [Jshint validator](https://jshint.com/)
+- **Site Functionality**: Tested funtionality on desktop and mobile using [Lighthouse](https://pagespeed.web.dev/)
+<details>
+<summary>index.html
+</summary>
 
-![alt text](image-3.png)
-**Tested jsHint**
+![HTML validation result](/assets/images/wc3.htmlvalidator.PNG)
+</details>
+<details>
+<summary>style.css
+</summary>
+
+![CSS validation result](/assets/images/wc3.cssvalidator.PNG)
+</details>
+<details>
+<summary>script.js
+</summary>
+
+![JavaScript validation result](/assets/images/jshint.test.PNG)
+</details>
+<details>
+<summary>Desktop report
+</summary>
+
+![Desktop lighthouse report](/assets/images/lighthouse%20score%20for%20desktop.PNG)
+</details>
+<details>
+<summary>Mobile report
+</summary>
+
+![Mobile lighthouse report](/assets/images/lighthouse%20score%20for%20mobile.PNG)
+</details>
+
+
+
+
 ## **Deployment and Local Development**  
 
 ### **Deploying via GitHub Pages**
@@ -117,16 +160,17 @@ Inspired by the success of *Kahoot!* and gamification in learning, this project 
 2. Go to **Settings > Pages** in your repository.  
 3. Select the branch (e.g., `main`) and click **Save**.  
 4. The live site will be available at:  
-   👉 `https://yourusername.github.io/your-repo/`  
+   👉 `https://cmq1996.github.io/Portfolio-2/`  
+
+
 
 ## **Credits & Acknowledgments**  
+**The Code Institute:** The Code Institute provided me with the knowledge and skills to write this project, of which I am particualrly proud of. 
 
-## **Credits & Acknowledgments**  
-
-- **Tutor Support:** A huge thank you to *Rory Patrick* for providing guidance, feedback, and support throughout the project.  
+- **Tutor Support:** A huge thank you to *Rory Patrick* for providing guidance, feedback, and support throughout the project. Pariticularly with some of my debugging steps, aswell as for providing me with a good format for my readme.  
 - **Images:** *Pexels, Unsplash* (Royalty-free historical images).  
 - **Fonts:** *Google Fonts* (*Cormorant Garamond*, *Gotham Rounded*).  
 - **Inspiration:** *Kahoot!* for gamified quiz concepts.  
 - **Testing Assistance:** Thanks to friends and beta testers for their feedback!  
 - **Learning Resources:** *W3Schools* for HTML, CSS, and JavaScript references.  
-
+- **Free stock image resources:** *https://www.pexels.com/* as a resource for stock images to use on my quiz to provide a more historical theme.
